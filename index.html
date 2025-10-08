@@ -118,11 +118,11 @@
             transform: scale(1.1);
         }
 
-        /* --- GENERAL PAGE SECTION STYLING --- */
+        /* --- GENERAL PAGE SECTION STYLING (MODIFIED) --- */
         .page-section {
             padding: 8rem 5% 4rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            /* max-width: 1200px; <-- REMOVED FOR FULL WIDTH */
+            /* margin: 0 auto; <-- REMOVED FOR FULL WIDTH */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -148,7 +148,8 @@
             grid-template-columns: repeat(2, 1fr);
             align-items: center;
             gap: 2rem;
-            padding: 2rem 5%;
+            padding-top: 2rem; /* Adjusted padding */
+            padding-bottom: 2rem; /* Adjusted padding */
         }
         .background-shape {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -247,7 +248,7 @@
         .project-card p { font-size: 1rem; opacity: 0.8; margin-bottom: 1rem; }
         .project-card a { font-weight: 600; color: var(--accent-color); }
 
-        /* --- CONTACT PAGE STYLES (UPDATED) --- */
+        /* --- CONTACT PAGE STYLES --- */
         .contact-content {
             text-align: center;
             max-width: 700px;
@@ -286,8 +287,9 @@
             opacity: 1;
             transform: translateY(0);
         }
-        .project-card:nth-child(2) { transition-delay: 200ms; }
-        .project-card:nth-child(3) { transition-delay: 400ms; }
+        /* Staggered animation for project cards */
+        .project-card.reveal:nth-child(2) { transition-delay: 200ms; }
+        .project-card.reveal:nth-child(3) { transition-delay: 400ms; }
 
         /* --- RESPONSIVENESS --- */
         @media (max-width: 768px) {
@@ -325,19 +327,19 @@
     </nav>
 
     <main>
-        <header id="home" class="page-section">
-            <div class="background-shape reveal"></div>
+        <header id="home" class="page-section reveal">
+            <div class="background-shape"></div>
             <div class="hero-text-content">
                 <h1>
                     <span id="scramble-text-1" class="ctf-player-text">CTF</span><br>
                     <span id="scramble-text-2" class="ctf-player-text">Player</span>
                 </h1>
-                <p class="subheading reveal">Welcome to my Portfolio</p>
-                <p class="skills reveal">
+                <p class="subheading">Welcome to my Portfolio</p>
+                <p class="skills">
                     Cryptography &bull; Web Exploitation &bull; Reverse Engineering &bull; Pwn &bull; Digital Forensics &bull; OSINT
                 </p>
             </div>
-            <div class="hero-profile-content reveal">
+            <div class="hero-profile-content">
                 <div class="profile-picture">
                     <img src="IMG_3389.JPG" alt="Profile Picture">
                 </div>
@@ -359,20 +361,20 @@
             </div>
         </header>
 
-        <section id="about" class="page-section">
-            <div class="bg-shape-2 reveal"></div>
-            <h1 class="reveal">About Me</h1>
-            <p class="reveal">
+        <section id="about" class="page-section reveal">
+            <div class="bg-shape-2"></div>
+            <h1>About Me</h1>
+            <p>
                 Hello! I'm Aron, a passionate cybersecurity enthusiast with a deep interest in Capture The Flag (CTF) competitions and defensive security mechanisms. My journey into the world of cybersecurity began with a fascination for how systems work and, more importantly, how they can be broken and secured.
             </p>
-            <p class="reveal">
+            <p>
                 I thrive on challenges and problem-solving, which is why I'm particularly drawn to areas like web exploitation, reverse engineering, and cryptography. As an active member of the @TriadaCTF team, I continuously hone my skills by collaborating with talented peers and competing in various global competitions. My goal is to leverage my offensive security knowledge to build more robust and resilient systems.
             </p>
         </section>
 
-        <section id="projects" class="page-section">
-            <div class="bg-shape-3 reveal"></div>
-            <h1 class="reveal">Projects</h1>
+        <section id="projects" class="page-section reveal">
+            <div class="bg-shape-3"></div>
+            <h1>Projects</h1>
             <div class="project-grid">
                 <div class="project-card reveal">
                     <h3>Vulnerability Scanner</h3>
@@ -392,10 +394,10 @@
             </div>
         </section>
 
-        <section id="contact" class="page-section">
-            <div class="bg-shape-4 reveal"></div>
-            <h1 class="reveal">Get In Touch</h1>
-            <div class="contact-content reveal">
+        <section id="contact" class="page-section reveal">
+            <div class="bg-shape-4"></div>
+            <h1>Get In Touch</h1>
+            <div class="contact-content">
                 <p>
                     I'm always open to connecting with like-minded individuals and exploring new opportunities. Feel free to reach out to me on any of the platforms below!
                 </p>
