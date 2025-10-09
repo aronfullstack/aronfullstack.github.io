@@ -92,10 +92,14 @@
             transform: translateY(-100%);
         }
 
-        nav .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
+        /* Styles for the logo image in the nav bar */
+        nav .logo-img {
+            width: 40px; /* Reduced as requested */
+            height: auto;
+            margin-top: -1px; /* Adjust for vertical alignment */
+            border-radius: 1px; /* Optional: adds a slight border radius */
         }
+
         .nav-right-container {
             display: flex;
             align-items: center;
@@ -341,7 +345,9 @@
 <body>
 
     <nav>
-        <a href="#home" class="logo">ARON</a>
+        <a href="#home">
+            <img src="aron.png" alt="Aron Logo" class="logo-img">
+        </a>
         <div class="nav-right-container">
             <ul>
                 <li><a href="#home" class="nav-link nav-active">Home</a></li>
