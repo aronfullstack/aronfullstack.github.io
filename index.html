@@ -390,7 +390,7 @@
                         <a href="https://x.com/Aronreji11" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
                     </div>
                     <div class="cta-buttons">
-                        <a href="#" class="btn btn-primary">Resume</a>
+                        <a href="Resume - Aron Reji.pdf" class="btn btn-primary" download="Aron_Reji_Resume.pdf">Resume</a>
                         <a href="#projects" class="btn btn-secondary">View Projects</a>
                     </div>
                 </div>
@@ -453,16 +453,34 @@
             
             // --- LOGIC FOR HIDING NAV ON SCROLL ---
             const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                 nav.classList.add('nav-hidden');
-            }
-            window.addEventListener('scroll', () => {
+            let lastScrollY = window.scrollY;
+
+            // Only hide/show nav if screen is wide enough
+            if (window.innerWidth > 768) { 
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > lastScrollY && window.scrollY > 50) {
+                        // Scrolling down and past the top
+                        nav.classList.add('nav-hidden');
+                    } else {
+                        // Scrolling up or at the very top
+                        nav.classList.remove('nav-hidden');
+                    }
+                    lastScrollY = window.scrollY;
+                });
+            } else {
+                 // On mobile, keep nav visible but check initial position
                 if (window.scrollY > 50) {
-                    nav.classList.add('nav-hidden');
-                } else {
-                    nav.classList.remove('nav-hidden');
+                     nav.classList.add('nav-hidden'); // Keep it hidden if already scrolled down on load
                 }
-            });
+                 window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        nav.classList.add('nav-hidden');
+                    } else {
+                        nav.classList.remove('nav-hidden');
+                    }
+                });
+            }
+
             
             // --- Logic for revealing elements on scroll ---
             const revealObserver = new IntersectionObserver((entries) => {
