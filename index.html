@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aron Reji | Portfolio</title>
     
+    <link rel="icon" type="image/png" href="aron.png">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -69,12 +71,13 @@
             text-decoration: none;
         }
 
-        /* --- NAVIGATION BAR --- */
+        /* --- NAVIGATION BAR (MODIFIED) --- */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 5%;
+            /* Changed padding to create space on the right for the toggle */
+            padding: 1rem 6rem 1rem 5%;
             background-color: var(--nav-bg);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--nav-border);
@@ -82,8 +85,13 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            transition: background-color 0.3s, border-bottom 0.3s;
+            transition: transform 0.4s ease-in-out, background-color 0.3s, border-bottom 0.3s;
         }
+        
+        nav.nav-hidden {
+            transform: translateY(-100%);
+        }
+
         nav .logo {
             font-size: 1.5rem;
             font-weight: 700;
@@ -105,24 +113,45 @@
         nav a:hover, .nav-active {
             color: var(--accent-color);
         }
+        
+        /* --- THEME TOGGLE (MODIFIED) --- */
         #theme-toggle {
+            position: fixed;
+            top: 1.25rem; /* Vertically centered with nav links */
+            right: 2rem;  /* Positioned inside the new padding space */
+            z-index: 1001;
             background: none;
             border: none;
             color: var(--text-color);
             font-size: 1.2rem;
             cursor: pointer;
             transition: color 0.3s, transform 0.3s;
+            padding: 0.5rem;
         }
         #theme-toggle:hover {
             color: var(--accent-color);
             transform: scale(1.1);
         }
 
-        /* --- GENERAL PAGE SECTION STYLING (MODIFIED) --- */
+        @keyframes fadeAndScale {
+            0% { opacity: 1; transform: scale(1) rotate(0deg); }
+            50% { opacity: 0; transform: scale(1.3) rotate(90deg); }
+            51% { opacity: 0; transform: scale(0.7) rotate(180deg); }
+            100% { opacity: 1; transform: scale(1) rotate(360deg); }
+        }
+
+        /* Corrected selector to target the icon reliably */
+        #theme-toggle i {
+            transition: all 0.5s ease-in-out;
+        }
+        #theme-toggle .animate-toggle {
+            animation: fadeAndScale 0.6s forwards;
+        }
+
+
+        /* --- GENERAL PAGE SECTION STYLING --- */
         .page-section {
             padding: 8rem 5% 4rem;
-            /* max-width: 1200px; <-- REMOVED FOR FULL WIDTH */
-            /* margin: 0 auto; <-- REMOVED FOR FULL WIDTH */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -148,8 +177,8 @@
             grid-template-columns: repeat(2, 1fr);
             align-items: center;
             gap: 2rem;
-            padding-top: 2rem; /* Adjusted padding */
-            padding-bottom: 2rem; /* Adjusted padding */
+            padding-top: 2rem;
+            padding-bottom: 2rem;
         }
         .background-shape {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -165,12 +194,8 @@
             text-transform: uppercase;
             margin-bottom: 1rem;
         }
-        .hero-text-content h1 .ctf-player-text {
-            color: var(--ctf-text-color);
-        }
-        .hero-text-content h1 .dud {
-            color: var(--dud-color);
-        }
+        .hero-text-content h1 .ctf-player-text { color: var(--ctf-text-color); }
+        .hero-text-content h1 .dud { color: var(--dud-color); }
         .hero-text-content .subheading { font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; }
         .hero-text-content .skills { font-size: 1rem; opacity: 0.8; max-width: 500px; }
         .hero-profile-content { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 2rem; }
@@ -283,12 +308,14 @@
             opacity: 1;
             transform: translateY(0);
         }
-        /* Staggered animation for project cards */
         .project-card.reveal:nth-child(2) { transition-delay: 200ms; }
         .project-card.reveal:nth-child(3) { transition-delay: 400ms; }
 
         /* --- RESPONSIVENESS --- */
         @media (max-width: 768px) {
+            nav {
+                padding: 1rem 5%; /* Revert padding for mobile */
+            }
             nav ul { display: none; }
             #home { grid-template-columns: 1fr; text-align: center; padding-top: 6rem; min-height: auto; }
             .background-shape { clip-path: polygon(0 0, 100% 0, 100% 25%, 0 35%); }
@@ -302,6 +329,12 @@
             .bg-shape-2, .bg-shape-3, .bg-shape-4 { display: none; }
             .contact-social-links a { font-size: 2rem; }
             .contact-social-links { gap: 2rem; }
+
+            #theme-toggle {
+                top: 1rem;
+                right: 1.5rem; /* Adjust position for mobile */
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -316,11 +349,12 @@
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <button id="theme-toggle" aria-label="Toggle light and dark mode">
-                <i class="fas fa-moon"></i>
-            </button>
         </div>
     </nav>
+    
+    <button id="theme-toggle" aria-label="Toggle light and dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
 
     <main>
         <header id="home" class="page-section reveal">
@@ -410,6 +444,20 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            
+            // --- LOGIC FOR HIDING NAV ON SCROLL ---
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                 nav.classList.add('nav-hidden');
+            }
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    nav.classList.add('nav-hidden');
+                } else {
+                    nav.classList.remove('nav-hidden');
+                }
+            });
+            
             // --- Logic for revealing elements on scroll ---
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -518,7 +566,7 @@
                 setInterval(runScramble, 3000); 
             }
 
-            // --- THEME TOGGLE LOGIC ---
+            // --- THEME TOGGLE LOGIC (MODIFIED) ---
             const themeToggleButton = document.getElementById('theme-toggle');
             const body = document.body;
             const themeIcon = themeToggleButton.querySelector('i');
@@ -535,14 +583,21 @@
                 }
             };
             
-            // On page load, check for a saved theme in localStorage
-            const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark mode
+            const savedTheme = localStorage.getItem('theme') || 'dark';
             applyTheme(savedTheme);
 
             themeToggleButton.addEventListener('click', () => {
-                const newTheme = body.classList.contains('light-mode') ? 'dark' : 'light';
-                localStorage.setItem('theme', newTheme);
-                applyTheme(newTheme);
+                themeIcon.classList.add('animate-toggle');
+                
+                setTimeout(() => {
+                    const newTheme = body.classList.contains('light-mode') ? 'dark' : 'light';
+                    localStorage.setItem('theme', newTheme);
+                    applyTheme(newTheme);
+                }, 300);
+
+                setTimeout(() => {
+                    themeIcon.classList.remove('animate-toggle');
+                }, 600);
             });
         });
     </script>
